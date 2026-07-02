@@ -1,5 +1,5 @@
 <script>
-import axios from "axios";
+import api from "@/api";
 
 export default {
   name: "RegisterView",
@@ -30,7 +30,7 @@ export default {
       }
 
       try {
-        await axios.post("http://127.0.0.1:5000/register", {
+        await api.post("/register", {
           username: this.username,
           password: this.password,
           email: this.email,
@@ -39,7 +39,7 @@ export default {
           role: this.role
         });
 
-        const res = await axios.post("http://127.0.0.1:5000/login", {
+        const res = await api.post("/login", {
           username: this.username,
           password: this.password
         });
@@ -49,8 +49,8 @@ export default {
         localStorage.setItem("username", res.data.username);
         localStorage.setItem("user_id", res.data.user_id);
 
-        const prof = await axios.get(
-          `http://127.0.0.1:5000/profile/${res.data.username}`,
+        const prof = await api.get(
+          `/profile/${res.data.username}`,
           { headers: { Authorization: `Bearer ${res.data.token}` } }
         );
 

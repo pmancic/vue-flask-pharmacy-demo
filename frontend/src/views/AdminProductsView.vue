@@ -1,5 +1,5 @@
 <script>
-import axios from "axios";
+import api from "@/api";
 
 export default {
   name: "AdminProductsView",
@@ -22,7 +22,7 @@ export default {
     async ucitajKorisnike() {
       this.greska = "";
       try {
-        const res = await axios.get("http://127.0.0.1:5000/admin/users", {
+        const res = await api.get("/admin/users", {
           headers: this.authHeaders()
         });
         this.korisnici = res.data.users || [];
@@ -41,7 +41,7 @@ export default {
     async ucitajProizvode() {
       this.greska = "";
       try {
-        const res = await axios.get("http://127.0.0.1:5000/admin/products", {
+        const res = await api.get("/admin/products", {
           headers: this.authHeaders()
         });
         this.proizvodi = res.data.products || [];
@@ -81,8 +81,8 @@ export default {
       }
 
       try {
-        await axios.put(
-          "http://127.0.0.1:5000/admin/products",
+        await api.put(
+          "/admin/products",
           {
             id: Number(id),
             cena: Number(this.form.cena),
@@ -106,7 +106,7 @@ export default {
       if (!confirm("Obrisati proizvod?")) return;
 
       try {
-        await axios.delete(`http://127.0.0.1:5000/admin/products/${id}`, {
+        await api.delete(`/admin/products/${id}`, {
           headers: this.authHeaders()
         });
         this.poruka = "Proizvod obrisan!";

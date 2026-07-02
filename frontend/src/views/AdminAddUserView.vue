@@ -1,5 +1,5 @@
 <script>
-import axios from "axios";
+import api from "@/api";
 
 export default {
   name: "AdminAddUserView",
@@ -59,8 +59,8 @@ export default {
 
       this.loading = true;
       try {
-        await axios.post(
-          "http://127.0.0.1:5000/admin/users/add",
+        await api.post(
+          "/admin/users/add",
           {
             username: this.username,
             password: this.password,

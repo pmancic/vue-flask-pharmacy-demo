@@ -5,7 +5,9 @@ export default {
 </script>
 
 <template>
-  <footer><h1>Petar Mancic 50-24IT</h1></footer>
+  <footer class="py-4 text-center text-muted small">
+    Demo full-stack pharmacy shop built with Vue, Flask and MySQL.
+  </footer>
 </template>
 
 <style scoped>

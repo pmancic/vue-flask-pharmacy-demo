@@ -54,7 +54,7 @@ export default {
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid d-flex">
-      <RouterLink class="navbar-brand" to="/">Apoteka</RouterLink>
+      <RouterLink class="navbar-brand" to="/">PharmaShop</RouterLink>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>

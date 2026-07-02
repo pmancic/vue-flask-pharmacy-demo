@@ -1,5 +1,5 @@
 <script>
-import axios from "axios";
+import api from "@/api";
 
 export default {
   name: "EditProductView",
@@ -43,7 +43,7 @@ export default {
       this.loading = true;
 
       try {
-        const res = await axios.get("http://127.0.0.1:5000/products", {
+        const res = await api.get("/products", {
           headers: this.authHeaders()
         });
         const lista = res.data.products || [];
@@ -106,8 +106,8 @@ export default {
       }
 
       try {
-        await axios.put(
-          `http://127.0.0.1:5000/products/update/${this.id}`,
+        await api.put(
+          `/products/update/${this.id}`,
           {
             naziv: this.naziv,
             opis: this.opis,

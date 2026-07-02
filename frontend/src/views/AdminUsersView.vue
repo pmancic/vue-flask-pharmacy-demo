@@ -1,5 +1,5 @@
 <script>
-import axios from "axios"
+import api from "@/api"
 
 export default {
   name: "AdminUsersView",
@@ -31,7 +31,7 @@ export default {
     async loadUsers() {
       this.greska = ""
       try {
-        const res = await axios.get("http://127.0.0.1:5000/admin/users", {
+        const res = await api.get("/admin/users", {
           headers: this.authHeaders()
         })
         this.users = res.data?.users || res.data || []
@@ -127,8 +127,8 @@ export default {
       if (this.form.password) payload.password = this.form.password
 
       try {
-        await axios.put(
-          `http://127.0.0.1:5000/admin/users/update/${id}`,
+        await api.put(
+          `/admin/users/update/${id}`,
           payload,
           { headers: this.authHeaders() }
         )
@@ -150,7 +150,7 @@ export default {
       if (!confirm("Obrisati korisnika?")) return
 
       try {
-        await axios.delete(`http://127.0.0.1:5000/admin/users/delete/${id}`, {
+        await api.delete(`/admin/users/delete/${id}`, {
           headers: this.authHeaders()
         })
         this.poruka = "Korisnik obrisan!"

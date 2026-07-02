@@ -1,5 +1,5 @@
 <script>
-import axios from "axios";
+import api from "@/api";
 
 export default {
   name: "CartView",
@@ -22,7 +22,7 @@ export default {
       this.loading = true;
       this.greska = "";
       try {
-        const res = await axios.get("http://127.0.0.1:5000/cart", {
+        const res = await api.get("/cart", {
           headers: this.authHeaders()
         });
         this.proizvodi = res.data.items || [];
@@ -46,8 +46,8 @@ export default {
       }
 
       try {
-        await axios.put(
-          `http://127.0.0.1:5000/cart/update/${productId}`,
+        await api.put(
+          `/cart/update/${productId}`,
           { quantity: Number(quantity) },
           { headers: this.authHeaders() }
         );
@@ -63,7 +63,7 @@ export default {
       this.poruka = "";
 
       try {
-        await axios.delete(`http://127.0.0.1:5000/cart/delete/${productId}`, {
+        await api.delete(`/cart/delete/${productId}`, {
           headers: this.authHeaders()
         });
         await this.ucitajKorpu();
@@ -79,8 +79,8 @@ export default {
       this.loading = true;
 
       try {
-        const res = await axios.post(
-          "http://127.0.0.1:5000/checkout",
+        const res = await api.post(
+          "/checkout",
           {},
           { headers: this.authHeaders() }
         );

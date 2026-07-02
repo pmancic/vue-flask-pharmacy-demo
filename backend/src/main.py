@@ -7,6 +7,9 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from werkzeug.security import generate_password_hash, check_password_hash
 from decimal import Decimal
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "dev-jwt-secret")
@@ -24,12 +27,12 @@ CORS(app,
 )
 jwt = JWTManager(app)
 
-def get_db_connection(host='localhost', user='root', password='', db='apoteka_wsit'):
+def get_db_connection():
     return mysql.connector.connect(
-        host=host,
-        user=user,
-        password=password,
-        db=db
+        host=os.getenv("DB_HOST", "localhost"),
+        user=os.getenv("DB_USER", "root"),
+        password=os.getenv("DB_PASSWORD", ""),
+        database=os.getenv("DB_NAME", "pharmacy_demo")
     )
 
 def validan_email(email):

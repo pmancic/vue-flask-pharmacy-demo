@@ -1,5 +1,5 @@
 <script>
-import axios from "axios";
+import api from "@/api";
 
 export default {
   name: "ProductDetailsView",
@@ -50,7 +50,7 @@ export default {
       this.greska = "";
       try {
         const id = Number(this.$route.params.id);
-        const res = await axios.get("http://127.0.0.1:5000/products", {
+        const res = await api.get("/products", {
           headers: this.authHeaders()
         });
         const lista = res.data.products || [];
@@ -69,7 +69,7 @@ export default {
       this.greska = "";
       try {
         const id = this.$route.params.id;
-        const res = await axios.get(`http://127.0.0.1:5000/products/${id}/comments`);
+        const res = await api.get(`/products/${id}/comments`);
         this.komentari = res.data.comments || [];
       }
       catch (e) {
@@ -84,8 +84,8 @@ export default {
       if (!this.noviKomentar.trim()) return;
 
       try {
-        await axios.post(
-          `http://127.0.0.1:5000/products/${this.proizvod.id}/comment`,
+        await api.post(
+          `/products/${this.proizvod.id}/comment`,
           { content: this.noviKomentar },
           { headers: this.authHeaders() }
         );
@@ -104,7 +104,7 @@ export default {
       if (!confirm("Obrisati proizvod?")) return;
 
       try {
-        await axios.delete(`http://127.0.0.1:5000/products/delete/${id}`, {
+        await api.delete(`/products/delete/${id}`, {
           headers: this.authHeaders()
         });
         this.poruka = "Proizvod obrisan!";
@@ -119,8 +119,8 @@ export default {
       this.poruka = "";
 
       try {
-        await axios.delete(
-          `http://127.0.0.1:5000/products/${this.proizvod.id}/comment/delete/${id}`,
+        await api.delete(
+          `/products/${this.proizvod.id}/comment/delete/${id}`,
           { headers: this.authHeaders() }
         );
         this.poruka = "Komentar obrisan!";
@@ -143,7 +143,7 @@ export default {
       this.greska = "";
 
       try {
-        await axios.post(`http://127.0.0.1:5000/cart/add/${product_id}`, {}, {
+        await api.post(`/cart/add/${product_id}`, {}, {
           headers: this.authHeaders()
         });
         this.poruka = "Dodato u korpu!";
@@ -172,8 +172,8 @@ export default {
       if (!this.tekstZaIzmenu.trim()) return;
 
       try {
-        await axios.put(
-          `http://127.0.0.1:5000/products/${this.proizvod.id}/comment/update/${id}`,
+        await api.put(
+          `/products/${this.proizvod.id}/comment/update/${id}`,
           { content: this.tekstZaIzmenu },
           { headers: this.authHeaders() }
         );
@@ -203,8 +203,8 @@ export default {
 
       this.loadingStock = true;
       try {
-        await axios.put(
-          `http://127.0.0.1:5000/products/update/${this.proizvod.id}`,
+        await api.put(
+          `/products/update/${this.proizvod.id}`,
           { stock: Number(this.proizvod.stock) + kolicina },
           { headers: this.authHeaders() }
         );

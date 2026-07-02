@@ -1,5 +1,5 @@
 <script>
-import axios from "axios";
+import api from "@/api";
 
 export default {
   name: "ProfileView",
@@ -31,7 +31,7 @@ export default {
       try {
         const username = this.$route.params.username;
 
-        const res = await axios.get(`http://127.0.0.1:5000/profile/${username}`, {
+        const res = await api.get(`/profile/${username}`, {
           headers: this.authHeaders()
         });
 
@@ -65,8 +65,8 @@ export default {
       }
 
       try {
-        await axios.put(
-          "http://127.0.0.1:5000/profile/update",
+        await api.put(
+          "/profile/update",
           {
             email: this.form.email,
             godina_rodjenja: Number(this.form.godinaRodjenja),
@@ -94,14 +94,14 @@ export default {
       }
 
       try {
-        await axios.post(
-          "http://127.0.0.1:5000/money/add",
+        await api.post(
+          "/money/add",
           { amount: Number(this.amount) },
           { headers: this.authHeaders() }
         );
 
-        const prof = await axios.get(
-          `http://127.0.0.1:5000/profile/${localStorage.getItem("username")}`,
+        const prof = await api.get(
+          `/profile/${localStorage.getItem("username")}`,
           { headers: this.authHeaders() }
         );
 

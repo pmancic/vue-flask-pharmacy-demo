@@ -1,5 +1,5 @@
 <script>
-import axios from "axios";
+import api from "@/api";
 
 export default {
   name: "AdminKomentariView",
@@ -21,7 +21,7 @@ export default {
     async ucitajKomentare() {
       this.greska = "";
       try {
-        const res = await axios.get("http://127.0.0.1:5000/admin/comments", {
+        const res = await api.get("/admin/comments", {
           headers: this.authHeaders()
         });
         this.komentari = res.data.komentari || [];
@@ -53,8 +53,8 @@ export default {
       }
 
       try {
-        await axios.put(
-          `http://127.0.0.1:5000/admin/comments/${komentar.id}`,
+        await api.put(
+          `/admin/comments/${komentar.id}`,
           { content: this.tekstZaIzmenu },
           { headers: this.authHeaders() }
         );
@@ -74,7 +74,7 @@ export default {
       if (!confirm("Obrisati komentar?")) return;
 
       try {
-        await axios.delete(`http://127.0.0.1:5000/admin/comments/${komentar.id}`, {
+        await api.delete(`/admin/comments/${komentar.id}`, {
           headers: this.authHeaders()
         });
 

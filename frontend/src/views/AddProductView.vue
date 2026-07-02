@@ -1,5 +1,5 @@
 <script>
-import axios from "axios";
+import api from "@/api";
 
 export default {
   name: "AddProductView",
@@ -37,7 +37,7 @@ export default {
     async ucitajProdavce() {
       this.greska = "";
       try {
-        const res = await axios.get("http://127.0.0.1:5000/admin/users", {
+        const res = await api.get("/admin/users", {
           headers: this.authHeaders()
         });
         const lista = res.data.users || [];
@@ -93,7 +93,7 @@ export default {
           payload.seller_id = Number(this.prodavac_id);
         }
 
-        await axios.post("http://127.0.0.1:5000/products/add", payload, {
+        await api.post("/products/add", payload, {
           headers: this.authHeaders()
         });
 

@@ -1,5 +1,5 @@
 <script>
-import axios from "axios";
+import api from "@/api";
 
 export default {
   name: "ProductsView",
@@ -32,7 +32,7 @@ export default {
     async ucitajProizvode() {
       this.greska = "";
       try {
-        const res = await axios.get("http://127.0.0.1:5000/products", {
+        const res = await api.get("/products", {
           headers: this.authHeaders()
         });
         this.proizvodi = res.data.products || [];
@@ -53,7 +53,7 @@ export default {
       this.greska = "";
 
       try {
-        await axios.post(`http://127.0.0.1:5000/cart/add/${product_id}`, {}, {
+        await api.post(`/cart/add/${product_id}`, {}, {
           headers: this.authHeaders()
         });
         this.poruka = "Dodato u korpu!";
@@ -69,7 +69,7 @@ export default {
       if (!confirm("Obrisati proizvod?")) return;
 
       try {
-        await axios.delete(`http://127.0.0.1:5000/products/delete/${id}`, {
+        await api.delete(`/products/delete/${id}`, {
           headers: this.authHeaders()
         });
         this.poruka = "Proizvod obrisan!";
